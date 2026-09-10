@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citizen Registry</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="letterhead">
+  <div class="seal">CCP</div>
+  <span class="brand">Citizen Registry</span>
+</nav>
+
+<div class="page-narrow">
+  <h2 style="font-size:30px;">Citizen Registry</h2>
+  <p style="color:var(--ink-soft); margin-top:-6px;">Standalone service — running independently on port 5001.</p>
+
+  <div class="counter citizens" style="margin-top:26px;">
+    <div class="counter-head"><h2>Register a citizen</h2></div>
+    <div class="counter-body">
+      <form id="citizenForm">
+        <div class="field"><input type="text" id="name" placeholder=" " required><label>Full name</label></div>
+        <div class="field"><input type="text" id="ward" placeholder=" " required><label>Ward</label></div>
+        <div class="field"><input type="text" id="phone" placeholder=" " required><label>Phone number</label></div>
+        <div class="btn-row"><button type="submit" class="btn btn-slate" id="registerBtn">Register citizen</button></div>
+      </form>
+      <div class="result-area" id="result"></div>
+    </div>
+  </div>
+
+  <div class="counter citizens">
+    <div class="counter-head"><h2>Look up a citizen</h2><p>Find a record by citizen ID</p></div>
+    <div class="counter-body">
+      <div class="field"><input type="number" id="searchId" placeholder=" "><label>Citizen ID</label></div>
+      <div class="btn-row"><button class="btn btn-outline" id="findBtn" onclick="findCitizen()">Find citizen</button></div>
+      <div class="result-area" id="citizenDetails"></div>
+    </div>
+  </div>
+</div>
+
+<script src="ui.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
