@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citizen Registry — Community Civic Portal</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="letterhead">
+  <div class="seal">CCP</div>
+  <span class="brand">Community Civic Portal</span>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/citizens.html" class="active">Citizens</a>
+    <a href="/complaints.html">Complaints</a>
+    <a href="/volunteers.html">Volunteers</a>
+  </div>
+</nav>
+
+<div class="page-narrow">
+  <h2 style="font-size:30px;">Citizen Registry</h2>
+  <p style="color:var(--ink-soft); margin-top:-6px;">Every household on record gets a citizen ID — the reference number complaints and volunteer signups are checked against.</p>
+
+  <div class="counter citizens" style="margin-top:26px;">
+    <div class="counter-head">
+      <h2>Register a citizen</h2>
+    </div>
+    <div class="counter-body">
+      <form id="citizenForm">
+        <div class="field">
+          <input type="text" id="name" placeholder=" " required>
+          <label>Full name</label>
+        </div>
+        <div class="field">
+          <input type="text" id="ward" placeholder=" " required>
+          <label>Ward</label>
+        </div>
+        <div class="field">
+          <input type="text" id="phone" placeholder=" " required>
+          <label>Phone number</label>
+        </div>
+        <div class="btn-row">
+          <button type="submit" class="btn btn-slate" id="registerBtn">Register citizen</button>
+        </div>
+      </form>
+      <div class="result-area" id="result"></div>
+    </div>
+  </div>
+
+  <div class="counter citizens">
+    <div class="counter-head">
+      <h2>Look up a citizen</h2>
+      <p>Find a record by citizen ID</p>
+    </div>
+    <div class="counter-body">
+      <div class="field">
+        <input type="number" id="searchId" placeholder=" ">
+        <label>Citizen ID</label>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-outline" id="findBtn" onclick="findCitizen()">Find citizen</button>
+      </div>
+      <div class="result-area" id="citizenDetails"></div>
+    </div>
+  </div>
+</div>
+
+<script src="ui.js"></script>
+<script>
+const API_URL = "/api/citizens";
+
+document.getElementById("citizenForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const btn = document.getElementById("registerBtn");
+    const name = document.getElementById("name").value;
+    const ward = document.getElementById("ward").value;
+    const phone = document.getElementById("phone").value;
+
+    setLoading(btn, true, "Registering...");
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({name, ward, phone})
+        });
+        const data = await response.json();
+
+        if (response.ok) {
+            document.getElementById("result").innerHTML = `
+                <div class="stamp-wrap">
+                    <div class="stamp citizens">REGISTERED</div>
+                    <div class="stamp-detail">
+                        <p class="big">Citizen #${data.citizen_id}</p>
+                        <p>${data.name} — Ward ${data.ward}</p>
+                    </div>
+                </div>`;
+            event.target.reset();
+        } else {
+            showToast(data.error || "Could not register citizen.");
+        }
+    } catch (e) {
+        showToast("Citizen Service is unreachable. Try again shortly.");
+    } finally {
+        setLoading(btn, false, "", "Register citizen");
+    }
+});
+
+async function findCitizen() {
+    const btn = document.getElementById("findBtn");
+    const id = document.getElementById("searchId").value;
+    if (!id) { showToast("Enter a citizen ID first."); return; }
+
+    setLoading(btn, true, "Looking up...");
+    try {
+        const response = await fetch(API_URL + "/" + id);
+        const data = await response.json();
+
+        if (response.ok) {
+            document.getElementById("citizenDetails").innerHTML = `
+                <div class="ticket">
+                    <div class="tid">#${data.citizen_id}</div>
+                    <div class="trow"><span>Name</span><span>${data.name}</span></div>
+                    <div class="trow"><span>Ward</span><span>${data.ward}</span></div>
+                    <div class="trow"><span>Phone</span><span>${data.phone}</span></div>
+                </div>`;
+        } else {
+            document.getElementById("citizenDetails").innerHTML = "";
+            showToast(data.error || "Citizen not found.");
+        }
+    } catch (e) {
+        showToast("Citizen Service is unreachable. Try again shortly.");
+    } finally {
+        setLoading(btn, false, "", "Find citizen");
+    }
+}
+</script>
+</body>
+</html>
