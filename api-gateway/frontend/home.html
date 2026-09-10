@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Civic Portal</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="letterhead">
+  <div class="seal">CCP</div>
+  <span class="brand">Community Civic Portal</span>
+  <div class="nav-links">
+    <a href="/" class="active">Home</a>
+    <a href="/citizens.html">Citizens</a>
+    <a href="/complaints.html">Complaints</a>
+    <a href="/volunteers.html">Volunteers</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div>
+    <h1>Your street.<br>Your say.</h1>
+    <p class="lede">Report what's broken, watch it move through the system, and lend a hand when a neighbor needs one — all from one counter.</p>
+    <div class="hero-ctas">
+      <a href="/complaints.html" class="btn btn-brick">Report an issue</a>
+      <a href="/volunteers.html" class="btn btn-gold">Find something to help with</a>
+    </div>
+  </div>
+
+  <svg class="hero-art" viewBox="0 0 360 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="30" y="170" width="34" height="90" fill="#1F3D2B"/>
+    <rect x="70" y="130" width="34" height="130" fill="#1F3D2B"/>
+    <rect x="110" y="190" width="34" height="70" fill="#1F3D2B"/>
+    <rect x="150" y="110" width="34" height="150" fill="#1F3D2B"/>
+    <rect x="40" y="185" width="8" height="8" fill="#C08A28"/>
+    <rect x="80" y="150" width="8" height="8" fill="#C08A28"/>
+    <rect x="120" y="205" width="8" height="8" fill="#C08A28"/>
+    <rect x="160" y="130" width="8" height="8" fill="#C08A28"/>
+    <rect x="160" y="155" width="8" height="8" fill="#C08A28"/>
+
+    <path class="route" d="M60 260 C 110 240, 140 230, 175 200 S 250 140, 290 90"
+          stroke="#B5502E" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 8"/>
+
+    <g class="pin">
+      <path d="M290 55 C 272 55, 258 69, 258 87 C 258 111, 290 145, 290 145 C 290 145, 322 111, 322 87 C 322 69, 308 55, 290 55 Z" fill="#B5502E"/>
+      <circle cx="290" cy="87" r="12" fill="#F2EEDD"/>
+    </g>
+
+    <line x1="0" y1="260" x2="360" y2="260" stroke="#D8D0BE" stroke-width="2"/>
+  </svg>
+</section>
+
+<div class="steps">
+  <div class="step">
+    <div class="num">1</div>
+    <h3>Register</h3>
+    <p>Add yourself to the citizen registry with your name, ward, and phone number.</p>
+  </div>
+  <div class="step">
+    <div class="num">2</div>
+    <h3>Report or browse</h3>
+    <p>File a civic issue, or browse what's already been reported nearby.</p>
+  </div>
+  <div class="step">
+    <div class="num">3</div>
+    <h3>Get it done</h3>
+    <p>Track progress, or sign up as a volunteer to help resolve it directly.</p>
+  </div>
+</div>
+
+<div class="tiles">
+  <a href="/citizens.html" class="tile citizens">
+    <svg class="icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#35586B" stroke-width="1.7">
+      <rect x="2" y="5" width="20" height="14" rx="1.5"/>
+      <circle cx="8" cy="12" r="2.3"/>
+      <line x1="13" y1="10" x2="18" y2="10"/>
+      <line x1="13" y1="13.5" x2="18" y2="13.5"/>
+    </svg>
+    <h3>Citizen Registry</h3>
+    <p>Register your household and look up an existing record.</p>
+    <span class="go">Open the registry</span>
+  </a>
+
+  <a href="/complaints.html" class="tile complaints">
+    <svg class="icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#B5502E" stroke-width="1.7">
+      <path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/>
+      <path d="M9 3v2h6V3"/>
+      <line x1="8" y1="10" x2="16" y2="10"/>
+      <line x1="8" y1="14" x2="16" y2="14"/>
+      <line x1="8" y1="18" x2="12" y2="18"/>
+    </svg>
+    <h3>File a Report</h3>
+    <p>Tell us what's broken and exactly where to find it.</p>
+    <span class="go">Open the ticket counter</span>
+  </a>
+
+  <a href="/volunteers.html" class="tile volunteers">
+    <svg class="icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#9C6E1B" stroke-width="1.7">
+      <path d="M2 12 L7 7 L10 9 L14 5 L20 11 L17 14 L14 11 L10 15 L7 13 Z"/>
+      <circle cx="19" cy="6" r="2"/>
+    </svg>
+    <h3>Volunteer Corps</h3>
+    <p>Put your name down for the fixes your street needs most.</p>
+    <span class="go">Join the corps</span>
+  </a>
+</div>
+
+</body>
+</html>
