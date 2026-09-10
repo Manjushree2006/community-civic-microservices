@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volunteer Corps</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="letterhead">
+  <div class="seal">CCP</div>
+  <span class="brand">Volunteer Corps</span>
+</nav>
+
+<div class="page-narrow">
+  <h2 style="font-size:30px;">Volunteer Corps</h2>
+  <p style="color:var(--ink-soft); margin-top:-6px;">Standalone service — running independently on port 5005.</p>
+
+  <div class="counter volunteers" style="margin-top:26px;">
+    <div class="counter-head"><h2>Join the corps</h2></div>
+    <div class="counter-body">
+      <form id="volunteerForm">
+        <div class="field"><input type="text" id="name" placeholder=" " required><label>Full name</label></div>
+        <div class="field"><input type="text" id="phone" placeholder=" " required><label>Phone number</label></div>
+        <div class="field"><input type="text" id="skill" placeholder=" " required><label>What can you help with?</label></div>
+        <div class="btn-row"><button type="submit" class="btn btn-gold" id="registerBtn">Join the corps</button></div>
+      </form>
+      <div class="result-area" id="result"></div>
+    </div>
+  </div>
+
+  <div class="counter volunteers">
+    <div class="counter-head"><h2>Sign up for a report</h2><p>You'll need your volunteer ID and the report's ticket number</p></div>
+    <div class="counter-body">
+      <div class="field"><input type="number" id="volunteerId" placeholder=" "><label>Your volunteer ID</label></div>
+      <div class="field"><input type="number" id="complaintId" placeholder=" "><label>Complaint ticket number</label></div>
+      <div class="btn-row"><button class="btn btn-gold" id="signupBtn" onclick="signUp()">Sign me up</button></div>
+      <div class="result-area" id="signupResult"></div>
+    </div>
+  </div>
+
+  <div class="counter volunteers">
+    <div class="counter-head"><h2>Who's helping already?</h2><p>Look up volunteers for a specific report</p></div>
+    <div class="counter-body">
+      <div class="field"><input type="number" id="searchComplaintId" placeholder=" "><label>Complaint ticket number</label></div>
+      <div class="btn-row"><button class="btn btn-outline" id="viewBtn" onclick="viewSignups()">View volunteers</button></div>
+      <div class="result-area" id="signupsList"></div>
+    </div>
+  </div>
+</div>
+
+<script src="ui.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
