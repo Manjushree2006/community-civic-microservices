@@ -1,127 +1,152 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>File a Report — Community Civic Portal</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<nav class="letterhead">
-  <div class="seal">CCP</div>
-  <span class="brand">Community Civic Portal</span>
-  <div class="nav-links">
-    <a href="/">Home</a>
-    <a href="/citizens.html">Citizens</a>
-    <a href="/complaints.html" class="active">Complaints</a>
-    <a href="/volunteers.html">Volunteers</a>
-  </div>
-</nav>
-
-<div class="page-narrow">
-  <h2 style="font-size:30px;">File a Report</h2>
-  <p style="color:var(--ink-soft); margin-top:-6px;">Every report is checked against the citizen registry before it's filed — you'll need your citizen ID handy.</p>
-
-  <div class="counter complaints" style="margin-top:26px;">
-    <div class="counter-head">
-      <h2>Report a civic issue</h2>
-    </div>
-    <div class="counter-body">
-      <form id="complaintForm">
-        <div class="field">
-          <input type="number" id="citizenId" placeholder=" " required>
-          <label>Your citizen ID</label>
-        </div>
-        <div class="field">
-          <textarea id="description" placeholder=" " required></textarea>
-          <label>What's the issue?</label>
-        </div>
-        <div class="field">
-          <input type="text" id="location" placeholder=" " required>
-          <label>Location</label>
-        </div>
-        <div class="btn-row">
-          <button type="submit" class="btn btn-brick" id="submitBtn">Submit report</button>
-        </div>
-      </form>
-      <div class="result-area" id="result"></div>
-    </div>
-  </div>
-
-  <div class="counter complaints">
-    <div class="counter-head">
-      <h2>Track a report</h2>
-      <p>Find a complaint by its ID</p>
-    </div>
-    <div class="counter-body">
-      <div class="field">
-        <input type="number" id="searchComplaintId" placeholder=" ">
-        <label>Complaint ID</label>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File a Report — Community Civic Portal</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="letterhead">
+      <div class="seal">CCP</div>
+      <span class="brand">Community Civic Portal</span>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/citizens.html">Citizens</a>
+        <a href="/complaints.html" class="active">Complaints</a>
+        <a href="/volunteers.html">Volunteers</a>
+        <a href="/boardscore.html">Board Score</a>
       </div>
-      <div class="btn-row">
-        <button class="btn btn-outline" id="trackBtn" onclick="findComplaint()">Track report</button>
+    </nav>
+
+    <div class="page-narrow">
+      <h2 style="font-size: 30px">File a Report</h2>
+      <p style="color: var(--ink-soft); margin-top: -6px">
+        Every report is checked against the citizen registry before it's filed —
+        you'll need your citizen ID handy.
+      </p>
+
+      <div class="counter complaints" style="margin-top: 26px">
+        <div class="counter-head">
+          <h2>Report a civic issue</h2>
+        </div>
+        <div class="counter-body">
+          <form id="complaintForm">
+            <div class="field">
+              <input type="number" id="citizenId" placeholder=" " required />
+              <label>Your citizen ID</label>
+            </div>
+            <div class="field">
+              <textarea id="description" placeholder=" " required></textarea>
+              <label>What's the issue?</label>
+            </div>
+            <div class="field">
+              <input type="text" id="location" placeholder=" " required />
+              <label>Location</label>
+            </div>
+            <div class="btn-row">
+              <button type="submit" class="btn btn-brick" id="submitBtn">
+                Submit report
+              </button>
+            </div>
+          </form>
+          <div class="result-area" id="result"></div>
+        </div>
       </div>
-      <div class="result-area" id="complaintDetails"></div>
+
+      <div class="counter complaints">
+        <div class="counter-head">
+          <h2>Track a report</h2>
+          <p>Find a complaint by its ID</p>
+        </div>
+        <div class="counter-body">
+          <div class="field">
+            <input type="number" id="searchComplaintId" placeholder=" " />
+            <label>Complaint ID</label>
+          </div>
+          <div class="btn-row">
+            <button
+              class="btn btn-outline"
+              id="trackBtn"
+              onclick="findComplaint()">
+              Track report
+            </button>
+          </div>
+          <div class="result-area" id="complaintDetails"></div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<script src="ui.js"></script>
-<script>
-const API_URL = "/api/complaints";
+    <script src="ui.js"></script>
+    <script>
+      const API_URL = "/api/complaints";
 
-function statusBadge(status) {
-    const cls = status === "OPEN" ? "badge-open" : status === "RESOLVED" ? "badge-resolved" : "badge-assigned";
-    return `<span class="badge ${cls}">${status}</span>`;
-}
+      function statusBadge(status) {
+        const cls =
+          status === "OPEN"
+            ? "badge-open"
+            : status === "RESOLVED"
+              ? "badge-resolved"
+              : "badge-assigned";
+        return `<span class="badge ${cls}">${status}</span>`;
+      }
 
-document.getElementById("complaintForm").addEventListener("submit", async function(event) {
-    event.preventDefault();
-    const btn = document.getElementById("submitBtn");
-    const citizenId = document.getElementById("citizenId").value;
-    const description = document.getElementById("description").value;
-    const location = document.getElementById("location").value;
+      document
+        .getElementById("complaintForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+          const btn = document.getElementById("submitBtn");
+          const citizenId = document.getElementById("citizenId").value;
+          const description = document.getElementById("description").value;
+          const location = document.getElementById("location").value;
 
-    setLoading(btn, true, "Filing report...");
-    try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({citizen_id: citizenId, description, location})
-        });
-        const data = await response.json();
+          setLoading(btn, true, "Filing report...");
+          try {
+            const response = await fetch(API_URL, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                citizen_id: citizenId,
+                description,
+                location,
+              }),
+            });
+            const data = await response.json();
 
-        if (response.ok) {
-            document.getElementById("result").innerHTML = `
+            if (response.ok) {
+              document.getElementById("result").innerHTML = `
                 <div class="ticket">
                     <div class="tid">Ticket #${data.complaint_id}</div>
                     <div class="trow"><span>Filed by</span><span>${data.citizen_name}</span></div>
                     <div class="trow"><span>Location</span><span>${data.location}</span></div>
                     <div class="trow"><span>Status</span>${statusBadge(data.status)}</div>
+                    <div class="trow"><span>Civic score</span><strong>+${data.civic_score}</strong></div>
                 </div>`;
-            event.target.reset();
-        } else {
-            showToast(data.error || "Could not file the report.");
+              event.target.reset();
+            } else {
+              showToast(data.error || "Could not file the report.");
+            }
+          } catch (e) {
+            showToast("Complaint Service is unreachable. Try again shortly.");
+          } finally {
+            setLoading(btn, false, "", "Submit report");
+          }
+        });
+
+      async function findComplaint() {
+        const btn = document.getElementById("trackBtn");
+        const id = document.getElementById("searchComplaintId").value;
+        if (!id) {
+          showToast("Enter a complaint ID first.");
+          return;
         }
-    } catch (e) {
-        showToast("Complaint Service is unreachable. Try again shortly.");
-    } finally {
-        setLoading(btn, false, "", "Submit report");
-    }
-});
 
-async function findComplaint() {
-    const btn = document.getElementById("trackBtn");
-    const id = document.getElementById("searchComplaintId").value;
-    if (!id) { showToast("Enter a complaint ID first."); return; }
+        setLoading(btn, true, "Looking up...");
+        try {
+          const response = await fetch(API_URL + "/" + id);
+          const data = await response.json();
 
-    setLoading(btn, true, "Looking up...");
-    try {
-        const response = await fetch(API_URL + "/" + id);
-        const data = await response.json();
-
-        if (response.ok) {
+          if (response.ok) {
             document.getElementById("complaintDetails").innerHTML = `
                 <div class="ticket">
                     <div class="tid">Ticket #${data.complaint_id}</div>
@@ -129,17 +154,18 @@ async function findComplaint() {
                     <div class="trow"><span>Issue</span><span>${data.description}</span></div>
                     <div class="trow"><span>Location</span><span>${data.location}</span></div>
                     <div class="trow"><span>Status</span>${statusBadge(data.status)}</div>
+                    <div class="trow"><span>Civic score</span><strong>${data.civic_score}</strong></div>
                 </div>`;
-        } else {
+          } else {
             document.getElementById("complaintDetails").innerHTML = "";
             showToast(data.error || "Complaint not found.");
+          }
+        } catch (e) {
+          showToast("Complaint Service is unreachable. Try again shortly.");
+        } finally {
+          setLoading(btn, false, "", "Track report");
         }
-    } catch (e) {
-        showToast("Complaint Service is unreachable. Try again shortly.");
-    } finally {
-        setLoading(btn, false, "", "Track report");
-    }
-}
-</script>
-</body>
+      }
+    </script>
+  </body>
 </html>

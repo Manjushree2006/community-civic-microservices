@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Board Score - Community Civic Portal</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="letterhead">
+      <div class="seal">CCP</div>
+      <span class="brand">Community Civic Portal</span>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/citizens.html">Citizens</a>
+        <a href="/complaints.html">Complaints</a>
+        <a href="/volunteers.html">Volunteers</a>
+        <a href="/boardscore.html" class="active">Board Score</a>
+      </div>
+    </nav>
+
+    <div class="page-narrow">
+      <h2 style="font-size: 30px">Board Score</h2>
+      <p style="color: var(--ink-soft); margin-top: -6px">
+        Every valid complaint adds 10 points to the reporting citizen's civic
+        score.
+      </p>
+      <div class="counter scores" style="margin-top: 26px">
+        <div class="counter-head">
+          <h2>Citizen leaderboard</h2>
+          <p>Highest civic scores first</p>
+        </div>
+        <div class="counter-body">
+          <div class="result-area" id="leaderboard">Loading scores...</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      async function loadLeaderboard() {
+        const target = document.getElementById("leaderboard");
+        try {
+          const response = await fetch("/api/scores/leaderboard");
+          const rows = await response.json();
+          if (!response.ok)
+            throw new Error(rows.error || "Could not load scores.");
+          target.innerHTML = rows.length
+            ? rows
+                .map(
+                  (row) => `
+      <div class="ticket">
+        <div class="tid">#${row.rank} &nbsp; ${row.name}</div>
+        <div class="trow"><span>Citizen ID</span><span>${row.citizen_id}</span></div>
+        <div class="trow"><span>Ward</span><span>${row.ward}</span></div>
+        <div class="trow"><span>Civic score</span><strong>${row.civic_score}</strong></div>
+      </div>`,
+                )
+                .join("")
+            : "<p>No civic scores yet. File the first report.</p>";
+        } catch (error) {
+          target.textContent = "Could not load the civic score board.";
+        }
+      }
+      loadLeaderboard();
+    </script>
+  </body>
+</html>

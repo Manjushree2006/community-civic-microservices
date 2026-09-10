@@ -37,6 +37,12 @@ def initialize_database():
             status TEXT NOT NULL
         )
     """)
+    db.execute("""
+        CREATE TABLE IF NOT EXISTS civic_scores (
+            citizen_id INTEGER PRIMARY KEY,
+            score INTEGER NOT NULL DEFAULT 0
+        )
+    """)
     db.commit()
     db.close()
 
@@ -82,8 +88,17 @@ def create_complaint():
         (citizen_id, description, location, status)
         VALUES (?, ?, ?, ?)
     """, (citizen_id, description, location, status))
+    cursor.execute("""
+        INSERT INTO civic_scores (citizen_id, score)
+        VALUES (?, 10)
+        ON CONFLICT(citizen_id) DO UPDATE SET score = score + 10
+    """, (citizen_id,))
     db.commit()
     complaint_id = cursor.lastrowid
+    score = cursor.execute(
+        "SELECT score FROM civic_scores WHERE citizen_id = ?",
+        (citizen_id,)
+    ).fetchone()[0]
     db.close()
 
     # Print which instance handled this — lets you visually confirm load balancing
@@ -96,6 +111,7 @@ def create_complaint():
         "description": description,
         "location": location,
         "status": status,
+        "civic_score": score,
         "handled_by_port": PORT
     }), 201
 
@@ -114,6 +130,11 @@ def get_complaint(complaint_id):
     if complaint is None:
         return jsonify({"error": "Complaint not found"}), 404
 
+    score = cursor.execute(
+        "SELECT score FROM civic_scores WHERE citizen_id = ?",
+        (complaint[1],)
+    ).fetchone()
+
     print(f"[Complaint instance on port {PORT}] served GET for complaint #{complaint_id}")
 
     return jsonify({
@@ -122,8 +143,39 @@ def get_complaint(complaint_id):
         "description": complaint[2],
         "location": complaint[3],
         "status": complaint[4],
+        "civic_score": score[0] if score else 0,
         "handled_by_port": PORT
     })
+
+@app.route("/scores/leaderboard", methods=["GET"])
+def civic_score_leaderboard():
+    db = get_db()
+    rows = db.execute("""
+        SELECT citizen_id, score
+        FROM civic_scores
+        ORDER BY score DESC, citizen_id ASC
+    """).fetchall()
+    db.close()
+
+    leaderboard = []
+    for index, row in enumerate(rows, start=1):
+        try:
+            citizen_response = requests.get(
+                f"{CITIZEN_SERVICE_URL}/citizens/{row[0]}",
+                timeout=3
+            )
+            citizen = citizen_response.json() if citizen_response.ok else {}
+        except requests.exceptions.RequestException:
+            citizen = {}
+        leaderboard.append({
+            "rank": index,
+            "citizen_id": row[0],
+            "name": citizen.get("name", "Citizen"),
+            "ward": citizen.get("ward", "Unknown"),
+            "civic_score": row[1]
+        })
+
+    return jsonify(leaderboard)
 
 if __name__ == "__main__":
     initialize_database()

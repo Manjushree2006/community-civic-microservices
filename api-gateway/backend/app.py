@@ -17,6 +17,7 @@ SERVICE_INSTANCES = {
     "complaints": ["http://localhost:5002", "http://localhost:5006"],
     "volunteers": ["http://localhost:5005"],
     "signups":    ["http://localhost:5005"],
+    "scores":     ["http://localhost:5002", "http://localhost:5006"],
 }
 
 # A round-robin cursor per service, so consecutive requests rotate through instances
