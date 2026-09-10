@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5001/citizens";
+const API_URL = "http://127.0.0.1:5001/citizens";
 
 document.getElementById("citizenForm").addEventListener("submit", async function(event) {
     event.preventDefault();

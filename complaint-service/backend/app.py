@@ -14,7 +14,7 @@ DATABASE = os.path.join(
     "../database/complaint.db"
 )
 
-CITIZEN_SERVICE_URL = "http://localhost:5001"
+CITIZEN_SERVICE_URL = "http://127.0.0.1:5001"
 
 # Load-balancing support: which port this particular instance listens on.
 # Run two copies of this exact same file on different ports, e.g.:

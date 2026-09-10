@@ -13,11 +13,11 @@ CORS(app)
 # Each service can have ONE or MULTIPLE instances. Complaint Service has two,
 # to demonstrate load balancing. Add more URLs to any list to scale that service.
 SERVICE_INSTANCES = {
-    "citizens":   ["http://localhost:5001"],
-    "complaints": ["http://localhost:5002", "http://localhost:5006"],
-    "volunteers": ["http://localhost:5005"],
-    "signups":    ["http://localhost:5005"],
-    "scores":     ["http://localhost:5002", "http://localhost:5006"],
+    "citizens":   ["http://127.0.0.1:5001"],
+    "complaints": ["http://127.0.0.1:5002", "http://127.0.0.1:5006"],
+    "volunteers": ["http://127.0.0.1:5005"],
+    "signups":    ["http://127.0.0.1:5005"],
+    "scores":     ["http://127.0.0.1:5002", "http://127.0.0.1:5006"],
 }
 
 # A round-robin cursor per service, so consecutive requests rotate through instances

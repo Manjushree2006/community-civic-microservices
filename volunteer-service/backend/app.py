@@ -14,7 +14,7 @@ DATABASE = os.path.join(
     "../database/volunteer.db"
 )
 
-COMPLAINT_SERVICE_URL = "http://localhost:5002"
+COMPLAINT_SERVICE_URL = "http://127.0.0.1:5002"
 
 def get_db():
     db = sqlite3.connect(DATABASE)

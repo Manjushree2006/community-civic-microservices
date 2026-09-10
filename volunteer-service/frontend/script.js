@@ -1,5 +1,5 @@
-const VOLUNTEER_API = "http://localhost:5005/volunteers";
-const SIGNUP_API = "http://localhost:5005/signups";
+const VOLUNTEER_API = "http://127.0.0.1:5005/volunteers";
+const SIGNUP_API = "http://127.0.0.1:5005/signups";
 
 document.getElementById("volunteerForm").addEventListener("submit", async function(event) {
     event.preventDefault();
