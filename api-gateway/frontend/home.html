@@ -37,15 +37,6 @@
             >See the civic board <span class="arrow">→</span></a
           >
         </div>
-        <div class="hero-proof">
-          <div class="avatar-stack" aria-hidden="true">
-            <span>R</span><span>M</span><span>A</span><span>+</span>
-          </div>
-          <p>
-            <strong>Neighbors are already pitching in.</strong><br />Your next
-            action can move the line.
-          </p>
-        </div>
       </div>
 
       <div class="hero-scene">
@@ -105,25 +96,6 @@
             ><small>Ward 3 · 4 minutes ago</small>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="impact-strip" aria-label="Community impact">
-      <div class="impact-intro">
-        <span class="eyebrow">The civic pulse</span
-        ><strong>One place to turn concern into momentum.</strong>
-      </div>
-      <div class="impact-stat">
-        <strong class="count" data-target="24">0</strong
-        ><span>reports moving</span>
-      </div>
-      <div class="impact-stat">
-        <strong class="count" data-target="86">0</strong
-        ><span>neighbors involved</span>
-      </div>
-      <div class="impact-stat">
-        <strong class="count" data-target="12">0</strong
-        ><span>wards connected</span>
       </div>
     </section>
 
@@ -218,19 +190,7 @@
       </a>
     </div>
 
-    <section class="closing-note reveal">
-      <span class="closing-mark">CCP</span>
-      <div>
-        <p class="eyebrow">Built for the block</p>
-        <h2>Good neighborhoods are a team sport.</h2>
-      </div>
-      <a href="/volunteers.html" class="text-link"
-        >Find your next way in <span>→</span></a
-      >
-    </section>
-
     <script>
-      const counters = document.querySelectorAll(".count");
       const revealItems = document.querySelectorAll(".reveal");
       const revealObserver = new IntersectionObserver(
         (entries) => {
@@ -243,21 +203,6 @@
         { threshold: 0.14 },
       );
       revealItems.forEach((item) => revealObserver.observe(item));
-
-      counters.forEach((counter) => {
-        const target = Number(counter.dataset.target);
-        let value = 0;
-        const tick = () => {
-          value += Math.max(1, Math.ceil(target / 24));
-          counter.textContent = value >= target ? target : value;
-          if (value < target) requestAnimationFrame(tick);
-        };
-        revealObserver.observe(counter.closest(".impact-stat"));
-        counter
-          .closest(".impact-stat")
-          .addEventListener("transitionend", tick, { once: true });
-        setTimeout(tick, 500);
-      });
 
       const pulseTime = document.getElementById("pulseTime");
       setInterval(() => {
