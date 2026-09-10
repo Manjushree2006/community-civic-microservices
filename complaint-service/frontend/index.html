@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>File a Report</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="letterhead">
+  <div class="seal">CCP</div>
+  <span class="brand">Complaint Counter</span>
+</nav>
+
+<div class="page-narrow">
+  <h2 style="font-size:30px;">File a Report</h2>
+  <p style="color:var(--ink-soft); margin-top:-6px;">Standalone service — running independently on port 5002.</p>
+
+  <div class="counter complaints" style="margin-top:26px;">
+    <div class="counter-head"><h2>Report a civic issue</h2></div>
+    <div class="counter-body">
+      <form id="complaintForm">
+        <div class="field"><input type="number" id="citizenId" placeholder=" " required><label>Your citizen ID</label></div>
+        <div class="field"><textarea id="description" placeholder=" " required></textarea><label>What's the issue?</label></div>
+        <div class="field"><input type="text" id="location" placeholder=" " required><label>Location</label></div>
+        <div class="btn-row"><button type="submit" class="btn btn-brick" id="submitBtn">Submit report</button></div>
+      </form>
+      <div class="result-area" id="result"></div>
+    </div>
+  </div>
+
+  <div class="counter complaints">
+    <div class="counter-head"><h2>Track a report</h2><p>Find a complaint by its ID</p></div>
+    <div class="counter-body">
+      <div class="field"><input type="number" id="searchComplaintId" placeholder=" "><label>Complaint ID</label></div>
+      <div class="btn-row"><button class="btn btn-outline" id="trackBtn" onclick="findComplaint()">Track report</button></div>
+      <div class="result-area" id="complaintDetails"></div>
+    </div>
+  </div>
+</div>
+
+<script src="ui.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
