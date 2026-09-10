@@ -20,62 +20,115 @@
     </nav>
 
     <section class="hero">
-      <div>
-        <h1>Your street.<br />Your say.</h1>
+      <div class="hero-copy">
+        <p class="eyebrow">
+          <span class="pulse-dot"></span> Your neighborhood, in motion
+        </p>
+        <h1>Small actions.<br /><em>Visible change.</em></h1>
         <p class="lede">
-          Report what's broken, watch it move through the system, and lend a
-          hand when a neighbor needs one — all from one counter.
+          The community counter for reporting what matters, tracking what moves,
+          and showing up for the streets we share.
         </p>
         <div class="hero-ctas">
-          <a href="/complaints.html" class="btn btn-brick">Report an issue</a>
-          <a href="/volunteers.html" class="btn btn-gold"
-            >Find something to help with</a
+          <a href="/complaints.html" class="btn btn-brick"
+            >Report an issue <span class="arrow">↗</span></a
           >
+          <a href="/boardscore.html" class="btn btn-outline"
+            >See the civic board <span class="arrow">→</span></a
+          >
+        </div>
+        <div class="hero-proof">
+          <div class="avatar-stack" aria-hidden="true">
+            <span>R</span><span>M</span><span>A</span><span>+</span>
+          </div>
+          <p>
+            <strong>Neighbors are already pitching in.</strong><br />Your next
+            action can move the line.
+          </p>
         </div>
       </div>
 
-      <svg
-        class="hero-art"
-        viewBox="0 0 360 300"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <rect x="30" y="170" width="34" height="90" fill="#1F3D2B" />
-        <rect x="70" y="130" width="34" height="130" fill="#1F3D2B" />
-        <rect x="110" y="190" width="34" height="70" fill="#1F3D2B" />
-        <rect x="150" y="110" width="34" height="150" fill="#1F3D2B" />
-        <rect x="40" y="185" width="8" height="8" fill="#C08A28" />
-        <rect x="80" y="150" width="8" height="8" fill="#C08A28" />
-        <rect x="120" y="205" width="8" height="8" fill="#C08A28" />
-        <rect x="160" y="130" width="8" height="8" fill="#C08A28" />
-        <rect x="160" y="155" width="8" height="8" fill="#C08A28" />
+      <div class="hero-scene">
+        <div class="scene-label">
+          <span class="live-mark"></span> Civic pulse
+          <strong id="pulseTime">now</strong>
+        </div>
+        <svg
+          class="hero-art"
+          viewBox="0 0 360 300"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="170" width="34" height="90" fill="#1F3D2B" />
+          <rect x="70" y="130" width="34" height="130" fill="#1F3D2B" />
+          <rect x="110" y="190" width="34" height="70" fill="#1F3D2B" />
+          <rect x="150" y="110" width="34" height="150" fill="#1F3D2B" />
+          <rect x="40" y="185" width="8" height="8" fill="#C08A28" />
+          <rect x="80" y="150" width="8" height="8" fill="#C08A28" />
+          <rect x="120" y="205" width="8" height="8" fill="#C08A28" />
+          <rect x="160" y="130" width="8" height="8" fill="#C08A28" />
+          <rect x="160" y="155" width="8" height="8" fill="#C08A28" />
 
-        <path
-          class="route"
-          d="M60 260 C 110 240, 140 230, 175 200 S 250 140, 290 90"
-          stroke="#B5502E"
-          stroke-width="3"
-          stroke-linecap="round"
-          stroke-dasharray="6 8" />
-
-        <g class="pin">
           <path
-            d="M290 55 C 272 55, 258 69, 258 87 C 258 111, 290 145, 290 145 C 290 145, 322 111, 322 87 C 322 69, 308 55, 290 55 Z"
-            fill="#B5502E" />
-          <circle cx="290" cy="87" r="12" fill="#F2EEDD" />
-        </g>
+            class="route"
+            d="M60 260 C 110 240, 140 230, 175 200 S 250 140, 290 90"
+            stroke="#B5502E"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-dasharray="6 8" />
 
-        <line
-          x1="0"
-          y1="260"
-          x2="360"
-          y2="260"
-          stroke="#D8D0BE"
-          stroke-width="2" />
-      </svg>
+          <g class="pin">
+            <path
+              d="M290 55 C 272 55, 258 69, 258 87 C 258 111, 290 145, 290 145 C 290 145, 322 111, 322 87 C 322 69, 308 55, 290 55 Z"
+              fill="#B5502E" />
+            <circle cx="290" cy="87" r="12" fill="#F2EEDD" />
+          </g>
+
+          <line
+            x1="0"
+            y1="260"
+            x2="360"
+            y2="260"
+            stroke="#D8D0BE"
+            stroke-width="2" />
+        </svg>
+        <div class="map-card map-card-top">
+          <span class="map-icon">↗</span>
+          <div>
+            <strong>Report filed</strong
+            ><small>Maple &amp; 4th · just now</small>
+          </div>
+        </div>
+        <div class="map-card map-card-bottom">
+          <span class="map-icon gold">✦</span>
+          <div>
+            <strong>Volunteer matched</strong
+            ><small>Ward 3 · 4 minutes ago</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="impact-strip" aria-label="Community impact">
+      <div class="impact-intro">
+        <span class="eyebrow">The civic pulse</span
+        ><strong>One place to turn concern into momentum.</strong>
+      </div>
+      <div class="impact-stat">
+        <strong class="count" data-target="24">0</strong
+        ><span>reports moving</span>
+      </div>
+      <div class="impact-stat">
+        <strong class="count" data-target="86">0</strong
+        ><span>neighbors involved</span>
+      </div>
+      <div class="impact-stat">
+        <strong class="count" data-target="12">0</strong
+        ><span>wards connected</span>
+      </div>
     </section>
 
     <div class="steps">
-      <div class="step">
+      <div class="step reveal">
         <div class="num">1</div>
         <h3>Register</h3>
         <p>
@@ -83,14 +136,14 @@
           number.
         </p>
       </div>
-      <div class="step">
+      <div class="step reveal">
         <div class="num">2</div>
         <h3>Report or browse</h3>
         <p>
           File a civic issue, or browse what's already been reported nearby.
         </p>
       </div>
-      <div class="step">
+      <div class="step reveal">
         <div class="num">3</div>
         <h3>Get it done</h3>
         <p>
@@ -100,7 +153,7 @@
     </div>
 
     <div class="tiles">
-      <a href="/citizens.html" class="tile citizens">
+      <a href="/citizens.html" class="tile citizens reveal">
         <svg
           class="icon"
           width="30"
@@ -119,7 +172,7 @@
         <span class="go">Open the registry</span>
       </a>
 
-      <a href="/complaints.html" class="tile complaints">
+      <a href="/complaints.html" class="tile complaints reveal">
         <svg
           class="icon"
           width="30"
@@ -140,7 +193,7 @@
         <span class="go">Open the ticket counter</span>
       </a>
 
-      <a href="/volunteers.html" class="tile volunteers">
+      <a href="/volunteers.html" class="tile volunteers reveal">
         <svg
           class="icon"
           width="30"
@@ -158,11 +211,63 @@
         <span class="go">Join the corps</span>
       </a>
 
-      <a href="/boardscore.html" class="tile scores">
+      <a href="/boardscore.html" class="tile scores reveal">
         <h3>Board Score</h3>
         <p>See which citizens are leading the civic score board.</p>
         <span class="go">View the board</span>
       </a>
     </div>
+
+    <section class="closing-note reveal">
+      <span class="closing-mark">CCP</span>
+      <div>
+        <p class="eyebrow">Built for the block</p>
+        <h2>Good neighborhoods are a team sport.</h2>
+      </div>
+      <a href="/volunteers.html" class="text-link"
+        >Find your next way in <span>→</span></a
+      >
+    </section>
+
+    <script>
+      const counters = document.querySelectorAll(".count");
+      const revealItems = document.querySelectorAll(".reveal");
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.14 },
+      );
+      revealItems.forEach((item) => revealObserver.observe(item));
+
+      counters.forEach((counter) => {
+        const target = Number(counter.dataset.target);
+        let value = 0;
+        const tick = () => {
+          value += Math.max(1, Math.ceil(target / 24));
+          counter.textContent = value >= target ? target : value;
+          if (value < target) requestAnimationFrame(tick);
+        };
+        revealObserver.observe(counter.closest(".impact-stat"));
+        counter
+          .closest(".impact-stat")
+          .addEventListener("transitionend", tick, { once: true });
+        setTimeout(tick, 500);
+      });
+
+      const pulseTime = document.getElementById("pulseTime");
+      setInterval(() => {
+        pulseTime.textContent =
+          "updated " +
+          new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+      }, 30000);
+    </script>
   </body>
 </html>
