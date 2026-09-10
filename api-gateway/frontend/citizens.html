@@ -110,10 +110,14 @@
                 </div>`;
               event.target.reset();
             } else {
-              showToast(data.error || "Could not register citizen.");
+              showToast(
+                data.error || `Citizen Service returned ${response.status}.`,
+              );
             }
           } catch (e) {
-            showToast("Citizen Service is unreachable. Try again shortly.");
+            showToast(
+              "Cannot connect to Citizen Service. Check that port 5001 is running.",
+            );
           } finally {
             setLoading(btn, false, "", "Register citizen");
           }
@@ -142,10 +146,14 @@
                 </div>`;
           } else {
             document.getElementById("citizenDetails").innerHTML = "";
-            showToast(data.error || "Citizen not found.");
+            showToast(
+              data.error || `Citizen Service returned ${response.status}.`,
+            );
           }
         } catch (e) {
-          showToast("Citizen Service is unreachable. Try again shortly.");
+          showToast(
+            "Cannot connect to Citizen Service. Check that port 5001 is running.",
+          );
         } finally {
           setLoading(btn, false, "", "Find citizen");
         }

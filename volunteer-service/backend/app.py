@@ -17,7 +17,25 @@ DATABASE = os.path.join(
 COMPLAINT_SERVICE_URL = "http://localhost:5002"
 
 def get_db():
-    return sqlite3.connect(DATABASE)
+    db = sqlite3.connect(DATABASE)
+    db.execute("""
+        CREATE TABLE IF NOT EXISTS volunteers (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            phone TEXT NOT NULL,
+            skill TEXT NOT NULL
+        )
+    """)
+    db.execute("""
+        CREATE TABLE IF NOT EXISTS signups (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            volunteer_id INTEGER NOT NULL,
+            complaint_id INTEGER NOT NULL,
+            complaint_description TEXT NOT NULL
+        )
+    """)
+    db.commit()
+    return db
 
 def initialize_database():
     db = get_db()

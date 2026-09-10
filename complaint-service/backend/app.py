@@ -24,7 +24,24 @@ CITIZEN_SERVICE_URL = "http://localhost:5001"
 PORT = int(os.environ.get("PORT", 5002))
 
 def get_db():
-    return sqlite3.connect(DATABASE)
+    db = sqlite3.connect(DATABASE)
+    db.execute("""
+        CREATE TABLE IF NOT EXISTS complaints (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            citizen_id INTEGER NOT NULL,
+            description TEXT NOT NULL,
+            location TEXT NOT NULL,
+            status TEXT NOT NULL
+        )
+    """)
+    db.execute("""
+        CREATE TABLE IF NOT EXISTS civic_scores (
+            citizen_id INTEGER PRIMARY KEY,
+            score INTEGER NOT NULL DEFAULT 0
+        )
+    """)
+    db.commit()
+    return db
 
 def initialize_database():
     db = get_db()
@@ -125,15 +142,16 @@ def get_complaint(complaint_id):
         WHERE id = ?
     """, (complaint_id,))
     complaint = cursor.fetchone()
-    db.close()
 
     if complaint is None:
+        db.close()
         return jsonify({"error": "Complaint not found"}), 404
 
     score = cursor.execute(
         "SELECT score FROM civic_scores WHERE citizen_id = ?",
         (complaint[1],)
     ).fetchone()
+    db.close()
 
     print(f"[Complaint instance on port {PORT}] served GET for complaint #{complaint_id}")
 

@@ -14,7 +14,17 @@ DATABASE = os.path.join(
 )
 
 def get_db():
-    return sqlite3.connect(DATABASE)
+    db = sqlite3.connect(DATABASE)
+    db.execute("""
+        CREATE TABLE IF NOT EXISTS citizens (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            ward TEXT NOT NULL,
+            phone TEXT NOT NULL
+        )
+    """)
+    db.commit()
+    return db
 
 def initialize_database():
     db = get_db()
